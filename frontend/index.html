@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snippet Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Snippet Manager</h1>
+            <div class="header-actions">
+                <label class="toggle">
+                    <input type="checkbox" id="autoCopyToggle">
+                    <span class="toggle-label">Auto-copy on select</span>
+                </label>
+                <button id="addButton" class="btn btn-primary">+ Add Snippet</button>
+            </div>
+        </header>
+
+        <div class="search-section">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Type keywords to search snippets..."
+                autocomplete="off"
+            >
+            <div class="search-info">
+                <span id="resultCount">0 snippets found</span>
+            </div>
+        </div>
+
+        <div id="snippetList" class="snippet-list">
+            <!-- Snippets will be rendered here -->
+        </div>
+
+        <div id="emptyState" class="empty-state">
+            <p>No snippets found. Try different keywords or add a new snippet.</p>
+        </div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Snippet</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="snippetForm">
+                    <div class="form-group">
+                        <label for="commandInput">Command *</label>
+                        <textarea
+                            id="commandInput"
+                            rows="3"
+                            placeholder="e.g., ls -lSh"
+                            required
+                        ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="keywordsInput">Keywords * (comma-separated)</label>
+                        <input
+                            type="text"
+                            id="keywordsInput"
+                            placeholder="e.g., list, size, files"
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="descriptionInput">Description</label>
+                        <input
+                            type="text"
+                            id="descriptionInput"
+                            placeholder="Optional description"
+                        >
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelButton">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Snippet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

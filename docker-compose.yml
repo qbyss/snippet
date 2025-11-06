@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  snippet-manager:
+    build: .
+    container_name: snippet-manager
+    ports:
+      - "3000:3000"
+    volumes:
+      # Persist snippets data
+      - ./backend/data:/app/backend/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/snippets', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s

@@ -1,0 +1,33 @@
+[
+  {
+    "id": "1",
+    "command": "ls -lSh",
+    "keywords": [
+      "list",
+      "size",
+      "files"
+    ],
+    "description": "List files sorted by size"
+  },
+  {
+    "id": "2",
+    "command": "docker ps -a",
+    "keywords": [
+      "docker",
+      "containers",
+      "list"
+    ],
+    "description": "List all Docker containers"
+  },
+  {
+    "id": "3",
+    "command": "git log --oneline --graph --all",
+    "keywords": [
+      "git",
+      "log",
+      "history",
+      "graph"
+    ],
+    "description": "Show Git log as a graph"
+  }
+]
