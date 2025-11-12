@@ -6,6 +6,7 @@ let snippets = [];
 let filteredSnippets = [];
 let selectedIndex = -1;
 let autoCopyEnabled = false;
+let formHasChanges = false;
 
 // DOM elements
 const searchInput = document.getElementById('searchInput');
@@ -199,6 +200,7 @@ async function addSnippet(command, keywords, description) {
         if (response.ok) {
             showNotification('Snippet added successfully');
             await loadSnippets();
+            formHasChanges = false; // Reset flag before closing
             closeModalWindow();
         } else {
             showNotification('Failed to add snippet', 'error');
@@ -222,13 +224,22 @@ function showNotification(message, type = 'success') {
 // Open modal
 function openModal() {
     modal.classList.add('visible');
+    formHasChanges = false;
     document.getElementById('commandInput').focus();
 }
 
 // Close modal
 function closeModalWindow() {
+    // Check if there are unsaved changes
+    if (formHasChanges) {
+        if (!confirm('You have unsaved changes. Are you sure you want to close?')) {
+            return;
+        }
+    }
+
     modal.classList.remove('visible');
     snippetForm.reset();
+    formHasChanges = false;
 }
 
 // Setup event listeners
@@ -302,6 +313,19 @@ function setupEventListeners() {
         if (command && keywords.length > 0) {
             addSnippet(command, keywords, description);
         }
+    });
+
+    // Track form changes
+    const formInputs = [
+        document.getElementById('commandInput'),
+        document.getElementById('keywordsInput'),
+        document.getElementById('descriptionInput')
+    ];
+
+    formInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            formHasChanges = true;
+        });
     });
 
     // Escape key to close modal
